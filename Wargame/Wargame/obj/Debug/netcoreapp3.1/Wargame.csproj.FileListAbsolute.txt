@@ -1,6 +1,0 @@
-C:\Users\User\source\repos\Wargame\Wargame\obj\Debug\netcoreapp3.1\Wargame.csprojAssemblyReference.cache
-C:\Users\User\source\repos\Wargame\Wargame\obj\Debug\netcoreapp3.1\Wargame.Form1.resources
-C:\Users\User\source\repos\Wargame\Wargame\obj\Debug\netcoreapp3.1\Wargame.csproj.GenerateResource.cache
-C:\Users\User\source\repos\Wargame\Wargame\obj\Debug\netcoreapp3.1\Wargame.AssemblyInfoInputs.cache
-C:\Users\User\source\repos\Wargame\Wargame\obj\Debug\netcoreapp3.1\Wargame.AssemblyInfo.cs
-C:\Users\User\source\repos\Wargame\Wargame\obj\Debug\netcoreapp3.1\Wargame.csproj.CoreCompileInputs.cache
