@@ -20,7 +20,6 @@ namespace Wargame
         private bool isPlacement;
         private bool isFiring;
         private bool isMoving;
-        private bool isChecking;
 
         private bool firstFighterMoving;
         public int Player { get; private set; }
@@ -309,6 +308,7 @@ namespace Wargame
         {
             SelectedPoint = new Point(mouse.X, mouse.Y);
             SetUnitButtonsPos(mouse);
+            RemoveArmamentButtons();
             ShowMainUnitButtons();
 
             ShipInfoLabel.Visible = false;
@@ -384,6 +384,7 @@ namespace Wargame
                 isMoving = false;
                 SelectedPoint = null;
                 HideMainUnitButtons();
+                RemoveArmamentButtons();
                 Invalidate();
                 return;
             }
@@ -460,7 +461,6 @@ namespace Wargame
                 {
                     noFiring = false;
                 }
-
             }
             FiringButton.BackColor = (selectedShip.Armament.Length > 0) && (!noFiring)
                 ? Color.FromArgb(220, 37, 145, 20)
@@ -546,7 +546,22 @@ namespace Wargame
         {
             var position = MapPoints[SelectedPoint.Value.X, SelectedPoint.Value.Y];
             HideMainUnitButtons();
-            SetCannonButtons(position);
+            var noFiring = true;
+            foreach (var cannon in (Map.Formation[SelectedPoint.Value.X, SelectedPoint.Value.Y] as Ship).Armament)
+            {
+                if (cannon.IsFired)
+                {
+                    continue;
+                }
+                else
+                {
+                    noFiring = false;
+                }
+            }
+            if (!noFiring)
+            {
+                SetCannonButtons(position);
+            }
             Invalidate();
         }
         private void FighterDropButton_Click(object sender, EventArgs e)
