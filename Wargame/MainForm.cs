@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace Wargame
 
         private Label TurnLabel;
         private Button TurnButton;
-        private Panel ShipInfoLabel;
+        private Label ShipInfoLabel;
         private Button MovementButton;
         //private Button FighterMovementButton;
         private Button FighterDropButton;
@@ -158,10 +158,10 @@ namespace Wargame
         }
         private void InitShipInfoLabel()
         {
-            ShipInfoLabel = new Panel
+            ShipInfoLabel = new Label
             {
                 AutoSize = true,
-                //TextAlign = ContentAlignment.MiddleLeft,
+                TextAlign = ContentAlignment.MiddleLeft,
                 BackColor = Color.FromArgb(220, 57, 82, 89),
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.None,
@@ -697,8 +697,20 @@ namespace Wargame
                "Shields: " + ship.Shields + "\n" +
                "Evasion: " + ship.Evasion + "\n" +
                "Speed: " + ship.Speed + "\n" +
-               "Fire range: " + ((ship.Armament.Length > 0) ? ship.Armament[0].Range.ToString() : "none") + "\n" +
-               "Firepower: " + ((ship.Armament.Length > 0) ? ("d" + ship.Armament[0].Power.ToString()) : "none") + "\n";
+               "Cannons: ";
+
+            if (ship.Armament.Length > 0)
+            {
+                foreach (var gun in ship.Armament)
+                {
+                    ShipInfoLabel.Text += "d" + gun.Power + " r" + gun.Range + "; ";
+                }
+            }
+            else
+            {
+                ShipInfoLabel.Text += "None";
+            }
+            ShipInfoLabel.Text += "\n";
         }
         private void CheckShipInfoLabel()
         {
