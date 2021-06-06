@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -641,13 +641,14 @@ namespace Wargame
                         owners.Add((hex as Ship).Player);
                     }
                 }
-                if (owners.Count() < 2)
+                if (owners.Count() == 0)
+                {
+                    winner = -1;
+                    isVictory = true;
+                }
+                else if (owners.Count() < 2)
                 {
                     winner = Player;
-                    if (!isVictory)
-                    {
-                        ticksCount = 0;
-                    }
                     isVictory = true;
                 }
             }
@@ -1081,7 +1082,6 @@ namespace Wargame
             }
             if (isVictory)
             {
-                graphics.DrawImage(Image.FromFile(Directory.GetCurrentDirectory() + "\\Resources\\background.jpg"), new Point(0, 0));
                 Parallel.Invoke(DrawVictory);
             }
             else
@@ -1374,7 +1374,9 @@ namespace Wargame
         {
             Controls.Clear();
             Controls.Add(VictoryLabel);
-            VictoryLabel.Text = "ВЫИГРАЛ ИГРОК " + (winner + 1);
+            VictoryLabel.Text = (winner>=0)
+                ?"ВЫИГРАЛ ИГРОК " + (winner + 1)
+                :"НИЧЬЯ";
             VictoryLabel.Visible = true;
         }
 
@@ -1403,8 +1405,6 @@ namespace Wargame
             graphics.FillRectangle(new SolidBrush(Color.FromArgb(255, 57, 82, 89)), rect);
             graphics.DrawRectangle(new Pen(Brushes.White, 2), rect);
             graphics.DrawString(text, font, Brushes.Red, position, format);
-
-
         }
     }
 }
